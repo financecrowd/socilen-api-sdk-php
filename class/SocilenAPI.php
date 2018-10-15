@@ -8,6 +8,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
+namespace Socilen;
+
 class SocilenAPI {
 
 	private static $api_base_uri = SOCILEN_API_BASE_URI;
