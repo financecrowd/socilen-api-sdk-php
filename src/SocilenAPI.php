@@ -8,9 +8,9 @@ use GuzzleHttp\Exception\RequestException;
 
 class SocilenAPI {
 
-	private static $api_base_uri = SOCILEN_API_BASE_URI;
-	private static $api_user = SOCILEN_API_USER;
-	private static $api_password = SOCILEN_API_PASSWORD;
+	private static $api_base_uri;
+	private static $api_user;
+	private static $api_password;
 	private $client;
 	private $authorization;
 	public $error;
