@@ -1,6 +1,5 @@
 {
     "name": "fintechapp/socilen-api-sdk-php",
-	"version": "0.0.3-stable",
     "description": "PHP SDK for connect to Socilen API.",
 	"homepage": "https://www.fintechappsolutions.com/",
     "authors": [
@@ -10,6 +9,8 @@
 			"role": "Developer"
         }
     ],
+	"version": "0.0.3-stable",
+	"minimum-stability": "dev",
     "require": {
 		  "guzzlehttp/guzzle": "~6.0"
 	}
