@@ -1,0 +1,13 @@
+{
+    "name": "fintechapp/gc-api-sdk-php",
+    "description": "SDK PHP for connect to Socilen API.",
+    "authors": [
+        {
+            "name": "David",
+            "email": "david@fintechapp.es"
+        }
+    ],
+    "require": {
+		  "guzzlehttp/guzzle": "~6.0"
+	}
+}
