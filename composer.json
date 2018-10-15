@@ -1,10 +1,13 @@
 {
-    "name": "fintechapp/gc-api-sdk-php",
-    "description": "SDK PHP for connect to Socilen API.",
+    "name": "fintechapp/socilen-api-sdk-php",
+	"version": "0.0.3",
+    "description": "PHP SDK for connect to Socilen API.",
+	"homepage": "https://www.fintechappsolutions.com/",
     "authors": [
         {
             "name": "David",
-            "email": "david@fintechapp.es"
+            "email": "david@fintechapp.es",
+			"role": "Developer"
         }
     ],
     "require": {
