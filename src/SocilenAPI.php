@@ -6,17 +6,6 @@ namespace Socilen;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
-//Define empty API constants
-if (!defined('SOCILEN_API_BASE_URI'))
-	define("SOCILEN_API_BASE_URI", '');
-
-if (!defined('SOCILEN_API_USER'))
-	define("SOCILEN_API_USER", '');
-
-if (!defined('SOCILEN_API_PASSWORD'))
-	define("SOCILEN_API_PASSWORD", '');
-
-
 class SocilenAPI {
 
 	private static $api_base_uri = SOCILEN_API_BASE_URI;
@@ -44,6 +33,16 @@ class SocilenAPI {
 	//</editor-fold>
 	//<editor-fold desc="base functions" defaultstate="collapsed">
 	private function checkAPIParams() {
+		//Define empty API constants
+		if (defined('SOCILEN_API_BASE_URI'))
+			self::$api_base_uri = SOCILEN_API_BASE_URI;
+
+		if (defined('SOCILEN_API_USER'))
+			self::$api_user = SOCILEN_API_USER;
+
+		if (defined('SOCILEN_API_PASSWORD'))
+			self::$api_password = SOCILEN_API_PASSWORD;
+		
 		if (empty(self::$api_base_uri)) {
 			$this->setError(400, "API base URI not set", " API base URI is not set, please set it");
 		}
