@@ -1,17 +1,22 @@
 {
-    "name": "fintechapp/socilen-api-sdk-php",
-    "description": "PHP SDK for connect to Socilen API.",
-	"homepage": "https://www.fintechappsolutions.com/",
-    "authors": [
-        {
-            "name": "David",
-            "email": "david@fintechapp.es",
-			"role": "Developer"
-        }
-    ],
-	"version": "0.0.3-stable",
-	"minimum-stability": "dev",
-    "require": {
-		  "guzzlehttp/guzzle": "~6.0"
+	"name" : "fintechapp/socilen-api-sdk-php",
+	"description" : "PHP SDK for connect to Socilen API.",
+	"homepage" : "https://www.fintechappsolutions.com/",
+	"authors" : [
+		{
+			"name" : "David",
+			"email" : "david@fintechapp.es",
+			"role" : "Developer"
+		}
+	],
+	"version" : "0.0.3-stable",
+	"minimum-stability" : "dev",
+	"require" : {
+		"guzzlehttp/guzzle" : "~6.0"
+	},
+	"autoload" : {
+		"psr-0" : {
+			"Socilen" : "src/"
+		}
 	}
 }
