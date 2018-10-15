@@ -1,6 +1,7 @@
 <?php
 
 namespace Socilen;
+
 //Info about requests params available on https://app.swaggerhub.com/apis/Socilen/api-socilen/docs
 
 use GuzzleHttp\Client;
@@ -17,16 +18,16 @@ class SocilenAPI {
 
 	//<editor-fold desc="Constructor" defaultstate="collapsed">
 	public function __construct() {
-		if($this->checkAPIParams()){
-		$options = [
-			// Base URI is used with relative requests
-			'base_uri' => self::$api_base_uri,
-			'timeout' => 5.0,
-		];
+		if ($this->checkAPIParams()) {
+			$options = [
+				// Base URI is used with relative requests
+				'base_uri' => self::$api_base_uri,
+				'timeout' => 5.0,
+			];
 
-		$this->client = new Client($options);
+			$this->client = new Client($options);
 
-		$this->setToken();
+			$this->setToken();
 		}
 	}
 
@@ -42,7 +43,7 @@ class SocilenAPI {
 
 		if (defined('SOCILEN_API_PASSWORD'))
 			self::$api_password = SOCILEN_API_PASSWORD;
-		
+
 		if (empty(self::$api_base_uri)) {
 			$this->setError(400, "API base URI not set", " API base URI is not set, please set it");
 		}
@@ -52,7 +53,7 @@ class SocilenAPI {
 		else if (empty(self::$api_password)) {
 			$this->setError(400, "API password not set", "API password is not set, please set it");
 		}
-		else{
+		else {
 			return true;
 		}
 		return false;
@@ -134,6 +135,18 @@ class SocilenAPI {
 		return $this->getContents("payments/transactions/new", ['json' => $payment_transaction], 'POST');
 	}
 
+	public function getMovements($payment_movement) {
+		return $this->getContents("payments/movements", ['json' => $payment_movement], 'POST');
+	}
+
+	public function newBankAccount($bank_account) {
+		return $this->getContents("payments/bank-accounts/new", ['json' => $bank_account], 'POST');
+	}
+
+	public function linkBankAccount($bank_account) {
+		return $this->getContents("payments/bank-accounts/link-payment-institution", ['json' => $bank_account], 'POST');
+	}
+
 	public function getPaymentsPlan(int $loan_code, int $lender_code = null, int $investment_code = null) {
 		$path = "payments/plan/loan/{$loan_code}";
 		if (!is_null($lender_code))
@@ -141,6 +154,97 @@ class SocilenAPI {
 		if (!is_null($lender_code))
 			$path .= "/investment/{$investment_code}";
 		return $this->getContents($path);
+	}
+
+	//</editor-fold>
+	//<editor-fold desc="Types" defaultstate="collapsed">
+	private function getTypes(string $type) {
+		return $this->getContents("types/{$type}");
+	}
+	
+	public function getTypesAddress() {
+		return $this->getTypes("address");
+	}
+	
+	public function getTypesDocuments() {
+		return $this->getTypes("documents");
+	}
+	
+	public function getTypesIDDocuments() {
+		return $this->getTypes("id-documents");
+	}
+	
+	public function getTypesMaritalStatus() {
+		return $this->getTypes("marital-status");
+	}
+	
+	public function getTypesProyectPurposes() {
+		return $this->getTypes("purposes");
+	}
+	
+	public function getTypesLoans() {
+		return $this->getTypes("loans");
+	}
+	
+	public function getTypesWorkingStatus() {
+		return $this->getTypes("working-status");
+	}
+	
+	public function getTypesPrincipalResidences() {
+		return $this->getTypes("principal-residences");
+	}
+	
+	public function getTypesSecondResidencess() {
+		return $this->getTypes("second-residences");
+	}
+	
+	public function getTypesPhones() {
+		return $this->getTypes("phones");
+	}
+	
+	public function getTypesGenders() {
+		return $this->getTypes("genders");
+	}
+	
+	public function getTypesCompanyTypes() {
+		return $this->getTypes("company/types");
+	}
+	
+	public function getTypesCompanySectors() {
+		return $this->getTypes("company/sectors");
+	}
+	
+	public function getTypesCompanyAdministrationSystems() {
+		return $this->getTypes("company/administration-systems");
+	}
+	
+	public function getTypesCompanyLegalRepresentatives() {
+		return $this->getTypes("company/legal-representatives");
+	}
+	
+	public function getTypesPerson() {
+		return $this->getTypes("person");
+	}
+	//</editor-fold>
+	//<editor-fold desc="Project" defaultstate="collapsed">
+	public function getProject(int $code) {
+		return $this->getContents("projects/{$code}");
+	}
+
+	public function newNaturalProject($project) {
+		return $this->getContents("projects/new/new/natural-person", ['json' => $project], 'POST');
+	}
+
+	public function newLegalProject($project) {
+		return $this->getContents("projects/new/legal-person", ['json' => $project], 'POST');
+	}
+	
+	public function getBid(int $project_code, int $bid_code) {
+		return $this->getContents("projects/{$project_code}/bid/{$bid_code}");
+	}
+	
+	public function newBid($bid) {
+		return $this->getContents("projects/bid/new", ['json' => $bid], 'POST');
 	}
 
 	//</editor-fold>
