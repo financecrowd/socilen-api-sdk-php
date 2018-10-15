@@ -1,14 +1,21 @@
 <?php
 
+namespace Socilen;
 //Info about requests params available on https://app.swaggerhub.com/apis/Socilen/api-socilen/docs
-
-require_once __DIR__ . '/../vars.php';
-require_once __DIR__ . '/../vendor/autoload.php';
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
-namespace Socilen;
+//Define empty API constants
+if (!defined('SOCILEN_API_BASE_URI'))
+	define("SOCILEN_API_BASE_URI", '');
+
+if (!defined('SOCILEN_API_USER'))
+	define("SOCILEN_API_USER", '');
+
+if (!defined('SOCILEN_API_PASSWORD'))
+	define("SOCILEN_API_PASSWORD", '');
+
 
 class SocilenAPI {
 

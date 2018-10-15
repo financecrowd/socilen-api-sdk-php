@@ -1,9 +1,9 @@
 <?php
-
-require_once __DIR__ . '/../class/SocilenAPI.php';
+require_once '../vendor/autoload.php';
+require_once __DIR__ . '/../src/SocilenAPI.php';
 
 //Obtain an instance of SocilenAPI, with it you can make all calls to desired methods until the token expires
-$api = new SocilenAPI();
+$api = new Socilen\SocilenAPI();
 //TODO Call the desired method of $api
 
 //Verify if an error occurred after calling a method
