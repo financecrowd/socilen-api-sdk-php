@@ -8,3 +8,6 @@ if (!defined('SOCILEN_API_USER'))
 
 if (!defined('SOCILEN_API_PASSWORD'))
 	define("SOCILEN_API_PASSWORD", '');
+
+if (!defined('SOCILEN_API_VERIFY_SSL'))
+	define("SOCILEN_API_VERIFY_SSL", false);

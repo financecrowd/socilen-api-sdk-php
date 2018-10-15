@@ -25,6 +25,9 @@ class SocilenAPI {
 				'timeout' => 5.0,
 			];
 
+			if (defined(SOCILEN_API_VERIFY_SSL))
+				$options['verify'] = SOCILEN_API_VERIFY_SSL;
+
 			$this->client = new Client($options);
 
 			$this->setToken();
@@ -161,70 +164,71 @@ class SocilenAPI {
 	private function getTypes(string $type) {
 		return $this->getContents("types/{$type}");
 	}
-	
+
 	public function getTypesAddress() {
 		return $this->getTypes("address");
 	}
-	
+
 	public function getTypesDocuments() {
 		return $this->getTypes("documents");
 	}
-	
+
 	public function getTypesIDDocuments() {
 		return $this->getTypes("id-documents");
 	}
-	
+
 	public function getTypesMaritalStatus() {
 		return $this->getTypes("marital-status");
 	}
-	
+
 	public function getTypesProyectPurposes() {
 		return $this->getTypes("purposes");
 	}
-	
+
 	public function getTypesLoans() {
 		return $this->getTypes("loans");
 	}
-	
+
 	public function getTypesWorkingStatus() {
 		return $this->getTypes("working-status");
 	}
-	
+
 	public function getTypesPrincipalResidences() {
 		return $this->getTypes("principal-residences");
 	}
-	
+
 	public function getTypesSecondResidencess() {
 		return $this->getTypes("second-residences");
 	}
-	
+
 	public function getTypesPhones() {
 		return $this->getTypes("phones");
 	}
-	
+
 	public function getTypesGenders() {
 		return $this->getTypes("genders");
 	}
-	
+
 	public function getTypesCompanyTypes() {
 		return $this->getTypes("company/types");
 	}
-	
+
 	public function getTypesCompanySectors() {
 		return $this->getTypes("company/sectors");
 	}
-	
+
 	public function getTypesCompanyAdministrationSystems() {
 		return $this->getTypes("company/administration-systems");
 	}
-	
+
 	public function getTypesCompanyLegalRepresentatives() {
 		return $this->getTypes("company/legal-representatives");
 	}
-	
+
 	public function getTypesPerson() {
 		return $this->getTypes("person");
 	}
+
 	//</editor-fold>
 	//<editor-fold desc="Project" defaultstate="collapsed">
 	public function getProject(int $code) {
@@ -238,11 +242,11 @@ class SocilenAPI {
 	public function newLegalProject($project) {
 		return $this->getContents("projects/new/legal-person", ['json' => $project], 'POST');
 	}
-	
+
 	public function getBid(int $project_code, int $bid_code) {
 		return $this->getContents("projects/{$project_code}/bid/{$bid_code}");
 	}
-	
+
 	public function newBid($bid) {
 		return $this->getContents("projects/bid/new", ['json' => $bid], 'POST');
 	}

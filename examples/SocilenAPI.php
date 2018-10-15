@@ -12,6 +12,10 @@ if (!defined('SOCILEN_API_USER'))
 if (!defined('SOCILEN_API_PASSWORD'))
 	define("SOCILEN_API_PASSWORD", 'api_passwd');
 
+//SSL Verify, only nedded on dev enviorements
+//if (!defined('SOCILEN_API_VERIFY_SSL'))
+//	define("SOCILEN_API_VERIFY_SSL", false);
+
 //Obtain an instance of SocilenAPI, with it you can make all calls to desired methods until the token expires
 $api = new SocilenAPI();
 //TODO Call the desired method of $api
