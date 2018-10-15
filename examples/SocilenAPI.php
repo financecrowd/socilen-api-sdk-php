@@ -1,8 +1,18 @@
 <?php
 
-require_once './vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 use Socilen\SocilenAPI;
+
+//Define API constants
+if (!defined('SOCILEN_API_BASE_URI'))
+	define("SOCILEN_API_BASE_URI", 'https://api-sandbox.socilen.com/');
+
+if (!defined('SOCILEN_API_USER'))
+	define("SOCILEN_API_USER", 'api_user');
+
+if (!defined('SOCILEN_API_PASSWORD'))
+	define("SOCILEN_API_PASSWORD", 'api_passwd');
 
 //Obtain an instance of SocilenAPI, with it you can make all calls to desired methods until the token expires
 $api = new SocilenAPI();

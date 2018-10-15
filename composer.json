@@ -9,7 +9,6 @@
 			"role" : "Developer"
 		}
 	],
-	"version" : "0.0.3-stable",
 	"minimum-stability" : "dev",
 	"require" : {
 		"guzzlehttp/guzzle" : "~6.0"
