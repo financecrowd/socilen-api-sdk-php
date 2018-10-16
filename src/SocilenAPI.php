@@ -25,7 +25,7 @@ class SocilenAPI {
 				'timeout' => 5.0,
 			];
 
-			if (defined(SOCILEN_API_VERIFY_SSL))
+			if (defined('SOCILEN_API_VERIFY_SSL'))
 				$options['verify'] = SOCILEN_API_VERIFY_SSL;
 
 			$this->client = new Client($options);
