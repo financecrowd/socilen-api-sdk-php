@@ -1,9 +1,11 @@
 <?php
-/**
- * Examples of use of GuzzleHttp requests, some requests maybe not exists in api.
- */
+// Load composer dependencies
+require_once __DIR__ . '/../vendor/autoload.php'; // 
+require_once __DIR__ .  '/../src/SocilenAPI.php'; // NOT necesary when lib is loaded by composer
+//Define API constants
+require_once __DIR__ .  '/../constants.php'; // NOT necesary when lib is loaded by composer
 
-require_once __DIR__ .  '/../class/SocilenAPI.php';
+use Socilen\SocilenAPI;
 
 class RequestExamples extends SocilenAPI{
 	//Send a GET request to url
@@ -19,6 +21,67 @@ class RequestExamples extends SocilenAPI{
 		
 		try {
 			$response = $this->client->request('GET', $url, $options);
+			$contents = json_decode($response->getBody()->getContents());
+			return $contents;
+		} catch (RequestException $e) {
+			$this->exceptionHandling($e);
+		}
+	}
+	
+	//Send a POST request to url with json body
+	public function postJSON($url, $json){
+		$headers = [
+				'Authorization' => $this->authorization, // "{grant_type} {token}" // "bearer 8bDBxauZVTA-oS_..._U6U1ggT3ahuJxmWLJIJk5tWaA8g"
+				'Content-Type' => 'application/json',
+		];
+		
+		$options = [
+			'headers' => $headers,
+			'body' => $json
+		];
+		
+		try {
+			$response = $this->client->request('POST', $url, $options);
+			$contents = json_decode($response->getBody()->getContents());
+			return $contents;
+		} catch (RequestException $e) {
+			$this->exceptionHandling($e);
+		}
+	}
+	
+	//Send a POST request to url with object body
+	public function postObject($url, $object){
+		$headers = [
+				'Authorization' => $this->authorization, // "{grant_type} {token}" // "bearer 8bDBxauZVTA-oS_..._U6U1ggT3ahuJxmWLJIJk5tWaA8g"
+				'Content-Type' => 'application/json',
+		];
+		
+		$options = [
+			'headers' => $headers,
+			'body' => json_encode($object)
+		];
+		
+		try {
+			$response = $this->client->request('POST', $url, $options);
+			$contents = json_decode($response->getBody()->getContents());
+			return $contents;
+		} catch (RequestException $e) {
+			$this->exceptionHandling($e);
+		}
+	}
+	//Send a POST request to url with object body
+	public function postObject2($url, $object){
+		$headers = [
+				'Authorization' => $this->authorization, // "{grant_type} {token}" // "bearer 8bDBxauZVTA-oS_..._U6U1ggT3ahuJxmWLJIJk5tWaA8g"
+		];
+		
+		$options = [
+			'headers' => $headers,
+			'json' => $object
+		];
+		
+		try {
+			$response = $this->client->request('POST', $url, $options);
 			$contents = json_decode($response->getBody()->getContents());
 			return $contents;
 		} catch (RequestException $e) {

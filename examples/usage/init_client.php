@@ -1,20 +1,11 @@
 <?php
-
-require_once __DIR__ . '/../vendor/autoload.php';
+// Load composer dependencies
+require_once __DIR__ . '/../../vendor/autoload.php'; // 
+require_once __DIR__ .  '/../../src/SocilenAPI.php'; // NOT necesary when lib is loaded by composer
+//Define API constants
+require_once __DIR__ .  '/../../constants.php'; // NOT necesary when lib is loaded by composer
 
 use Socilen\SocilenAPI;
-
-//Define API constants
-if (!defined('SOCILEN_API_BASE_URI'))
-	define("SOCILEN_API_BASE_URI", 'https://api-sandbox.socilen.com/');
-if (!defined('SOCILEN_API_USER'))
-	define("SOCILEN_API_USER", 'api_user');
-if (!defined('SOCILEN_API_PASSWORD'))
-	define("SOCILEN_API_PASSWORD", 'api_passwd');
-
-//SSL Verify, only nedded on dev enviorements
-//if (!defined('SOCILEN_API_VERIFY_SSL'))
-//	define("SOCILEN_API_VERIFY_SSL", false);
 
 //Obtain an instance of SocilenAPI, with it you can make all calls to desired methods until the token expires
 $api = new SocilenAPI();
