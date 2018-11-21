@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../../vendor/autoload.php'; // 
 require_once __DIR__ .  '/../../src/SocilenAPI.php'; // NOT necesary when lib is loaded by composer
 //Define API constants
-require_once __DIR__ .  '/../../constants.php'; // NOT necesary when lib is loaded by composer
+require_once __DIR__ .  '/../../constants.php';
 
 use Socilen\SocilenAPI;
 
