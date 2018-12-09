@@ -8,7 +8,6 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
 class SocilenAPI {
-
 	private static $api_base_uri;
 	private static $api_user;
 	private static $api_password;
@@ -17,17 +16,18 @@ class SocilenAPI {
 	public $error;
 
 	//<editor-fold desc="Constructor" defaultstate="collapsed">
-	public function __construct() {
+	public function __construct($options = array()) {
 		if ($this->checkAPIParams()) {
-			$options = [
+			$default_options = [
 				// Base URI is used with relative requests
 				'base_uri' => self::$api_base_uri,
 				'timeout' => 5.0,
 			];
 
 			if (defined('CLIENT_API_VERIFY_SSL'))
-				$options['verify'] = CLIENT_API_VERIFY_SSL;
+				$default_options['verify'] = CLIENT_API_VERIFY_SSL;
 
+			$options = array_merge($default_options, $options);
 			$this->client = new Client($options);
 
 			$this->setToken();
@@ -307,4 +307,5 @@ class SocilenAPI {
 	}
 
 	//</editor-fold>
+
 }
