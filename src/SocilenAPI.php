@@ -133,6 +133,24 @@ class SocilenAPI {
 	}
 
 	//</editor-fold>
+	//<editor-fold desc="Merchants" defaultstate="collapsed">
+	public function getBorrowers() {
+		return $this->getContents("merchants/borrowers");
+	}
+	public function getLenders() {
+		return $this->getContents("merchants/lenders");
+	}
+	public function getLoans() {
+		return $this->getContents("merchants/loans");
+	}
+	public function getProjects() {
+		return $this->getContents("merchants/projects");
+	}
+	public function getPublishedProjects() {
+		return $this->getContents("merchants/projects/published");
+	}
+
+	// </editor-fold>
 	//<editor-fold defaultstate="collapsed" desc="Payment">
 	public function newPaymentTransaction($payment_transaction) {
 		return $this->getContents("payments/transactions/new", ['json' => $payment_transaction], 'POST');
@@ -158,7 +176,7 @@ class SocilenAPI {
 			$path .= "/investment/{$investment_code}";
 		return $this->getContents($path);
 	}
-	
+
 	public function newPayoutRequest($request_data) {
 		return $this->getContents("payments/payouts/request", ['json' => $request_data], 'POST');
 	}
