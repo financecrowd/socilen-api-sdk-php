@@ -158,6 +158,10 @@ class SocilenAPI {
 			$path .= "/investment/{$investment_code}";
 		return $this->getContents($path);
 	}
+	
+	public function newPayoutRequest($request_data) {
+		return $this->getContents("payments/payouts/request", ['json' => $request_data], 'POST');
+	}
 
 	//</editor-fold>
 	//<editor-fold desc="Types" defaultstate="collapsed">
