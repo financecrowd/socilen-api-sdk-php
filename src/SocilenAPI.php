@@ -264,7 +264,7 @@ class SocilenAPI {
 	}
 
 	public function newNaturalProject($project) {
-		return $this->getContents("projects/new/new/natural-person", ['json' => $project], 'POST');
+		return $this->getContents("projects/new/natural-person", ['json' => $project], 'POST');
 	}
 
 	public function newLegalProject($project) {
