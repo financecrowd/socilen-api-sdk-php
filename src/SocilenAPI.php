@@ -111,6 +111,12 @@ class SocilenAPI {
 	}
 
 	//</editor-fold>
+	//<editor-fold defaultstate="collapsed" desc="Documents">
+	public function newDocument($document) {
+		return $this->getContents("documents", ['json' => $document], 'POST');
+	}
+	
+	//</editor-fold>
 	//<editor-fold defaultstate="collapsed" desc="Lender">
 	public function getLender(int $code) {
 		return $this->getContents("lenders/{$code}");
