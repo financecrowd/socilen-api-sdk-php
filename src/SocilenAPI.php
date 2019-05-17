@@ -314,11 +314,18 @@ class SocilenAPI {
 		return !is_null($this->error);
 	}
 
-	private function setError($status_code, $status_text, $response) {
+	private function setError($status_code, $status_text, $response, $request = null) {
 		$this->error = [
 			'status_code' => $status_code,
 			'status_text' => $status_text,
 			'response' => $response
+		];
+		if($status_code == 400 || $request == null) return;
+		
+		$this->error['request'] = [
+			'method' => $request->getMethod(),
+			'uri' => $request->getUri()->__toString(),
+			'body' => $request->getBody()->__toString()
 		];
 	}
 
