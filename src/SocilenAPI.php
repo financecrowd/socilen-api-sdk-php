@@ -113,7 +113,11 @@ class SocilenAPI {
 	//</editor-fold>
 	//<editor-fold defaultstate="collapsed" desc="Documents">
 	public function newDocument($document) {
-		return $this->getContents("documents", ['json' => $document], 'POST');
+		return $this->getContents("documents/new", ['json' => $document], 'POST');
+	}
+
+	public function getAllDocuments($document) {
+		return $this->getContents("documents/all", ['json' => $document], 'POST');
 	}
 	
 	//</editor-fold>
