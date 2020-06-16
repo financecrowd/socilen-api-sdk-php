@@ -97,6 +97,16 @@ class SocilenAPI {
 
 	//</editor-fold>
 	//<editor-fold desc="Requests" defaultstate="collapsed">
+	//<editor-fold desc="User">
+	public function newAddress($data) {
+		return $this->getContents("users/addresses/new", ['json' => $data], 'POST');
+	}
+	public function newPhone($data) {
+		return $this->getContents("users/phones/new", ['json' => $data], 'POST');
+	}
+	//</editor-fold>
+
+
 	//<editor-fold defaultstate="collapsed" desc="Borrower">
 	public function getBorrower(int $code) {
 		return $this->getContents("borrowers/{$code}");
