@@ -153,6 +153,15 @@ class SocilenAPI {
 	public function getLoans() {
 		return $this->getContents("merchants/loans");
 	}
+	public function getMerchantMovementsAll() {
+		return $this->getContents("merchants/movements/all");
+	}
+	public function getMerchantMovementsInOut() {
+		return $this->getContents("merchants/movements/inout");
+	}
+	public function getMerchantMovementsP2P() {
+		return $this->getContents("merchants/movements/p2p");
+	}
 	public function getProjects() {
 		return $this->getContents("merchants/projects");
 	}
