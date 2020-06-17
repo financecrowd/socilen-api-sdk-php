@@ -104,6 +104,13 @@ class SocilenAPI {
 	public function newPhone($data) {
 		return $this->getContents("users/phones/new", ['json' => $data], 'POST');
 	}
+
+	public function getAgreementsAll($data) {
+		return $this->getContents("users/agreements/all", ['json' => $data], 'POST');
+	}
+	public function getAgreementsPending($data) {
+		return $this->getContents("users/agreements/pending", ['json' => $data], 'POST');
+	}
 	//</editor-fold>
 
 
@@ -126,7 +133,7 @@ class SocilenAPI {
 		return $this->getContents("documents/new", ['json' => $document], 'POST');
 	}
 
-	public function getAllDocuments($document) {
+	public function getDocumentsAll($document) {
 		return $this->getContents("documents/all", ['json' => $document], 'POST');
 	}
 	
@@ -185,8 +192,16 @@ class SocilenAPI {
 		return $this->getContents("payments/transactions/new", ['json' => $payment_transaction], 'POST');
 	}
 
-	public function getMovements($payment_movement) {
-		return $this->getContents("payments/movements", ['json' => $payment_movement], 'POST');
+	public function getMovementsAll($data) {
+		return $this->getContents("payments/movements/all", ['json' => $data], 'POST');
+	}
+
+	public function getMovementsRetained($data) {
+		return $this->getContents("payments/movements/retained", ['json' => $data], 'POST');
+	}
+
+	public function getMovementsNoRetained($data) {
+		return $this->getContents("payments/movements/no-retained", ['json' => $data], 'POST');
 	}
 
 	public function newBankAccount($bank_account) {
