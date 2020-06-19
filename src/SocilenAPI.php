@@ -301,12 +301,28 @@ class SocilenAPI {
 		return $this->getContents("projects/{$code}");
 	}
 
-	public function newNaturalProject($project) {
+	public function newProject($project) {
+		return $this->getContents("projects/new", ['json' => $project], 'POST');
+	}
+
+	public function newProjectEvents($project) {
+		return $this->getContents("projects/new/events", ['json' => $project], 'POST');
+	}
+
+	public function newProjectLegal($project) {
+		return $this->getContents("projects/new/legal-person", ['json' => $project], 'POST');
+	}
+
+	public function newProjectNatural($project) {
 		return $this->getContents("projects/new/natural-person", ['json' => $project], 'POST');
 	}
 
-	public function newLegalProject($project) {
-		return $this->getContents("projects/new/legal-person", ['json' => $project], 'POST');
+	public function newProjectReduced($project) {
+		return $this->getContents("projects/new/reduced", ['json' => $project], 'POST');
+	}
+
+	public function newProjectRealEstate($project) {
+		return $this->getContents("projects/new/real-estate", ['json' => $project], 'POST');
 	}
 
 	public function getBid(int $project_code, int $bid_code) {
