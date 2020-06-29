@@ -119,6 +119,10 @@ class SocilenAPI {
 		return $this->getContents("borrowers/{$code}");
 	}
 
+	public function getBorrowerProjects(int $code) {
+		return $this->getContents("borrowers/{$code}/projects");
+	}
+
 	public function newNaturalBorrower($borrower) {
 		return $this->getContents("borrowers/new/natural", ['json' => $borrower], 'POST');
 	}
