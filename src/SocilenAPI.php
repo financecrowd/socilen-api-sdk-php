@@ -333,6 +333,10 @@ class SocilenAPI {
 		return $this->getContents("projects/{$project_code}/bid/{$bid_code}");
 	}
 
+	public function getProjectBids(int $project_code) {
+		return $this->getContents("projects/{$project_code}/bids");
+	}
+
 	public function newBid($bid) {
 		return $this->getContents("projects/bid/new", ['json' => $bid], 'POST');
 	}
