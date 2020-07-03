@@ -216,13 +216,8 @@ class SocilenAPI {
 		return $this->getContents("payments/bank-accounts/link-payment-institution", ['json' => $bank_account], 'POST');
 	}
 
-	public function getPaymentsPlan(int $loan_code, int $lender_code = null, int $investment_code = null) {
-		$path = "payments/plan/loan/{$loan_code}";
-		if (!is_null($lender_code))
-			$path .= "/lender/{$lender_code}";
-		if (!is_null($lender_code))
-			$path .= "/investment/{$investment_code}";
-		return $this->getContents($path);
+	public function getPaymentsPlan($data) {
+		return $this->getContents("payments/plan", ['json' => $data], 'POST');
 	}
 
 	public function newPayoutRequest($request_data) {
