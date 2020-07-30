@@ -163,6 +163,10 @@ class SocilenAPI {
 		return $this->getContents("lenders/{$code}/investments/in_process");
 	}
 
+	public function requestAccreditedLender(int $code) {
+		return $this->getContents("lenders/{$code}/requests/accredited");
+	}
+
 	//</editor-fold>
 	//<editor-fold desc="Merchants" defaultstate="collapsed">
 	public function getBorrowers() {
