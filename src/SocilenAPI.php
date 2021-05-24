@@ -17,15 +17,14 @@ class SocilenAPI {
 
 	//<editor-fold desc="Constructor" defaultstate="collapsed">
 	public function __construct($options = array()) {
-		if ($this->checkAPIParams()) {
+		if($this->checkAPIParams()) {
 			$default_options = [
 				// Base URI is used with relative requests
 				'base_uri' => self::$api_base_uri,
 				'timeout' => 15.0,
 			];
 
-			if (defined('SOCILEN_API_VERIFY_SSL'))
-				$default_options['verify'] = SOCILEN_API_VERIFY_SSL;
+			if(defined('SOCILEN_API_VERIFY_SSL')) $default_options['verify'] = SOCILEN_API_VERIFY_SSL;
 
 			$options = array_merge($default_options, $options);
 			$this->client = new Client($options);
@@ -38,22 +37,19 @@ class SocilenAPI {
 	//<editor-fold desc="base functions" defaultstate="collapsed">
 	private function checkAPIParams() {
 		//Define empty API constants
-		if (defined('SOCILEN_API_BASE_URI'))
-			self::$api_base_uri = SOCILEN_API_BASE_URI;
+		if(defined('SOCILEN_API_BASE_URI')) self::$api_base_uri = SOCILEN_API_BASE_URI;
 
-		if (defined('SOCILEN_API_USER'))
-			self::$api_user = SOCILEN_API_USER;
+		if(defined('SOCILEN_API_USER')) self::$api_user = SOCILEN_API_USER;
 
-		if (defined('SOCILEN_API_PASSWORD'))
-			self::$api_password = SOCILEN_API_PASSWORD;
+		if(defined('SOCILEN_API_PASSWORD')) self::$api_password = SOCILEN_API_PASSWORD;
 
-		if (empty(self::$api_base_uri)) {
+		if(empty(self::$api_base_uri)) {
 			$this->setError(400, "API base URI not set", " API base URI is not set, please set it");
 		}
-		else if (empty(self::$api_user)) {
+		else if(empty(self::$api_user)) {
 			$this->setError(400, "API user not set", "API user is not set, please set it");
 		}
-		else if (empty(self::$api_password)) {
+		else if(empty(self::$api_password)) {
 			$this->setError(400, "API password not set", "API password is not set, please set it");
 		}
 		else {
@@ -64,7 +60,7 @@ class SocilenAPI {
 
 	private function safeJSONDecode($contents, string $alternative = null) {
 		$response = json_decode($contents);
-		if ($response == null) {
+		if($response == null) {
 			$response = $alternative;
 		}
 
@@ -86,11 +82,11 @@ class SocilenAPI {
 			$response = $this->client->request($method, $path, array_merge($this->getBaseOptions(), $options));
 			$code = $response->getStatusCode();
 			$contents = $this->safeJSONDecode($response->getBody()->getContents());
-			if ($code != 200) {
+			if($code != 200) {
 				$this->setError($code, $response->getReasonPhrase(), $contents);
 			}
 			return $contents;
-		} catch (RequestException $e) {
+		} catch(RequestException $e) {
 			$this->exceptionHandling($e);
 		}
 	}
@@ -101,6 +97,7 @@ class SocilenAPI {
 	public function newAddress($data) {
 		return $this->getContents("users/addresses/new", ['json' => $data], 'POST');
 	}
+
 	public function newPhone($data) {
 		return $this->getContents("users/phones/new", ['json' => $data], 'POST');
 	}
@@ -108,6 +105,7 @@ class SocilenAPI {
 	public function getAgreementsAll($data) {
 		return $this->getContents("users/agreements/all", ['json' => $data], 'POST');
 	}
+
 	public function getAgreementsPending($data) {
 		return $this->getContents("users/agreements/pending", ['json' => $data], 'POST');
 	}
@@ -172,27 +170,35 @@ class SocilenAPI {
 	public function getBorrowers() {
 		return $this->getContents("merchants/borrowers");
 	}
+
 	public function getLenders() {
 		return $this->getContents("merchants/lenders");
 	}
+
 	public function getLendersBasic() {
 		return $this->getContents("merchants/lenders/basic");
 	}
+
 	public function getLoans() {
 		return $this->getContents("merchants/loans");
 	}
+
 	public function getMerchantMovementsAll() {
 		return $this->getContents("merchants/movements/all");
 	}
+
 	public function getMerchantMovementsInOut() {
 		return $this->getContents("merchants/movements/inout");
 	}
+
 	public function getMerchantMovementsP2P() {
 		return $this->getContents("merchants/movements/p2p");
 	}
+
 	public function getProjects() {
 		return $this->getContents("merchants/projects");
 	}
+
 	public function getPublishedProjects() {
 		return $this->getContents("merchants/projects/published");
 	}
@@ -373,13 +379,13 @@ class SocilenAPI {
 			$response = $this->client->request('POST', 'token', $options);
 			$code = $response->getStatusCode();
 			$contents = $this->safeJSONDecode($response->getBody()->getContents());
-			if ($code == 200) {
+			if($code == 200) {
 				$this->authorization = "{$contents->token_type} {$contents->access_token}";
 			}
 			else {
 				$this->setError($code, $response->getReasonPhrase(), $contents);
 			}
-		} catch (RequestException $e) {
+		} catch(RequestException $e) {
 			$this->exceptionHandling($e);
 		}
 	}
@@ -406,7 +412,7 @@ class SocilenAPI {
 	}
 
 	private function exceptionHandling(RequestException $e) {
-		if ($e->hasResponse()) {
+		if($e->hasResponse()) {
 			$status_code = $e->getResponse()->getStatusCode();
 			$reason = $e->getResponse()->getReasonPhrase();
 			$contents = $e->getResponse()->getBody()->getContents();
