@@ -21,7 +21,7 @@ class SocilenAPI {
 			$default_options = [
 				// Base URI is used with relative requests
 				'base_uri' => self::$api_base_uri,
-				'timeout' => 5.0,
+				'timeout' => 15.0,
 			];
 
 			if (defined('SOCILEN_API_VERIFY_SSL'))
@@ -140,7 +140,7 @@ class SocilenAPI {
 	public function getDocumentsAll($document) {
 		return $this->getContents("documents/all", ['json' => $document], 'POST');
 	}
-	
+
 	//</editor-fold>
 	//<editor-fold defaultstate="collapsed" desc="Lender">
 	public function getLender(int $code) {
@@ -163,8 +163,8 @@ class SocilenAPI {
 		return $this->getContents("lenders/{$code}/investments/in_process");
 	}
 
-	public function requestAccreditedLender(int $code) {
-		return $this->getContents("lenders/{$code}/requests/accredited");
+	public function requestAccreditedLender(int $lender_code) {
+		return $this->getContents("lenders/{$lender_code}/requests/accredited");
 	}
 
 	//</editor-fold>
@@ -174,6 +174,9 @@ class SocilenAPI {
 	}
 	public function getLenders() {
 		return $this->getContents("merchants/lenders");
+	}
+	public function getLendersBasic() {
+		return $this->getContents("merchants/lenders/basic");
 	}
 	public function getLoans() {
 		return $this->getContents("merchants/loans");
@@ -200,16 +203,16 @@ class SocilenAPI {
 		return $this->getContents("payments/transactions/new", ['json' => $payment_transaction], 'POST');
 	}
 
-	public function getMovementsAll($data) {
-		return $this->getContents("payments/movements/all", ['json' => $data], 'POST');
+	public function getMovementsAll($payment_movement) {
+		return $this->getContents("payments/movements/all", ['json' => $payment_movement], 'POST');
 	}
 
-	public function getMovementsRetained($data) {
-		return $this->getContents("payments/movements/retained", ['json' => $data], 'POST');
+	public function getMovementsRetained($payment_movement) {
+		return $this->getContents("payments/movements/retained", ['json' => $payment_movement], 'POST');
 	}
 
-	public function getMovementsNoRetained($data) {
-		return $this->getContents("payments/movements/no-retained", ['json' => $data], 'POST');
+	public function getMovementsNoRetained($payment_movement) {
+		return $this->getContents("payments/movements/no-retained", ['json' => $payment_movement], 'POST');
 	}
 
 	public function newBankAccount($bank_account) {
@@ -220,8 +223,20 @@ class SocilenAPI {
 		return $this->getContents("payments/bank-accounts/link-payment-institution", ['json' => $bank_account], 'POST');
 	}
 
+	public function newBankAccountMandate($bank_account) {
+		return $this->getContents("payments/bank-accounts/mandates/new", ['json' => $bank_account], 'POST');
+	}
+
+	public function signBankAccountMandate($bank_account) {
+		return $this->getContents("payments/bank-accounts/mandates/sign", ['json' => $bank_account], 'POST');
+	}
+
 	public function getPaymentsPlan($data) {
 		return $this->getContents("payments/plan", ['json' => $data], 'POST');
+	}
+
+	public function getPaymentsPlanByLender($data) {
+		return $this->getContents("payments/plan/loan/{$data['loan_code']}/lender/{$data['lender_code']}");
 	}
 
 	public function newPayoutRequest($request_data) {
@@ -230,7 +245,7 @@ class SocilenAPI {
 
 	//</editor-fold>
 	//<editor-fold desc="Types" defaultstate="collapsed">
-	private function getTypes(string $type) {
+	public function getTypes(string $type) {
 		return $this->getContents("types/{$type}");
 	}
 
@@ -382,7 +397,7 @@ class SocilenAPI {
 			'response' => $response
 		];
 		if($status_code == 400 || $request == null) return;
-		
+
 		$this->error['request'] = [
 			'method' => $request->getMethod(),
 			'uri' => $request->getUri()->__toString(),
@@ -395,7 +410,8 @@ class SocilenAPI {
 			$status_code = $e->getResponse()->getStatusCode();
 			$reason = $e->getResponse()->getReasonPhrase();
 			$contents = $e->getResponse()->getBody()->getContents();
-			$this->setError($status_code, $reason, $this->safeJSONDecode($contents, $e->getMessage()));
+			$request = $e->getRequest();
+			$this->setError($status_code, $reason, $this->safeJSONDecode($contents, $e->getMessage()), $request);
 		}
 		else {
 			$this->setError(500, 'Internal Server error', $e->getMessage());
