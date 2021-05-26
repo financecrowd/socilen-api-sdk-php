@@ -237,6 +237,10 @@ class SocilenAPI {
 		return $this->getContents("payments/bank-accounts/mandates/sign", ['json' => $bank_account], 'POST');
 	}
 
+	public function updateBankAccountMandate($bank_account) {
+		return $this->getContents("payments/bank-accounts/mandates/update", ['json' => $bank_account], 'POST');
+	}
+
 	public function getPaymentsPlan($data) {
 		return $this->getContents("payments/plan", ['json' => $data], 'POST');
 	}
