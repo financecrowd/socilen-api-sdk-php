@@ -253,6 +253,10 @@ class SocilenAPI {
 		return $this->getContents("payments/payouts/request", ['json' => $request_data], 'POST');
 	}
 
+	public function requestProfitsSharings($request_data) {
+		return $this->getContents("payments/profits-sharing/request", ['json' => $request_data], 'POST');
+	}
+
 	//</editor-fold>
 	//<editor-fold desc="Types" defaultstate="collapsed">
 	public function getTypes(string $type) {
